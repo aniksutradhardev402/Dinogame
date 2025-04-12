@@ -2,6 +2,8 @@
 
 A fun and interactive Chrome dinosaur-inspired game built with JavaScript!
 
+![Dinosaur Game Screenshot](./asset/Screenshot%202025-04-12%20131603.png)
+
 ## 🎮 Play the Game
 
 You can play the game directly here:
