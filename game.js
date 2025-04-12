@@ -107,6 +107,17 @@ class Game {
         // Add reset high score button listener
         document.getElementById('resetHighScore').addEventListener('click', this.resetHighScore.bind(this));
         
+        // Touch control properties
+        this.touchStartY = 0;
+        this.touchStartTime = 0;
+        this.swipeThreshold = 50; // minimum distance for swipe
+        this.swipeTimeThreshold = 300; // maximum time for swipe
+        
+        // Add touch event listeners
+        this.canvas.addEventListener('touchstart', this.handleTouchStart.bind(this), false);
+        this.canvas.addEventListener('touchmove', this.handleTouchMove.bind(this), false);
+        this.canvas.addEventListener('touchend', this.handleTouchEnd.bind(this), false);
+        
         // Start the game
         this.updateHighScoreDisplay();
         this.gameLoop();
@@ -158,6 +169,57 @@ class Game {
         
         // Release ducking
         if (event.code === 'ArrowDown') {
+            this.dino.ducking = false;
+            this.dino.height = this.dino.normalHeight;
+            this.dino.y = this.groundLevel;
+        }
+    }
+    
+    handleTouchStart(event) {
+        event.preventDefault();
+        if (this.isGameOver) {
+            this.resetGame();
+            return;
+        }
+        this.touchStartY = event.touches[0].clientY;
+        this.touchStartTime = Date.now();
+    }
+
+    handleTouchMove(event) {
+        event.preventDefault();
+        if (this.isGameOver) return;
+
+        const touchY = event.touches[0].clientY;
+        const deltaY = touchY - this.touchStartY;
+        const deltaTime = Date.now() - this.touchStartTime;
+
+        // Check for swipe down
+        if (deltaY > this.swipeThreshold && deltaTime < this.swipeTimeThreshold) {
+            if (!this.dino.jumping && !this.dino.ducking) {
+                this.dino.ducking = true;
+                this.dino.height = this.dino.duckHeight;
+                this.dino.y = this.groundLevel + (this.dino.normalHeight - this.dino.duckHeight);
+            }
+        }
+    }
+
+    handleTouchEnd(event) {
+        event.preventDefault();
+        if (this.isGameOver) return;
+
+        const deltaY = event.changedTouches[0].clientY - this.touchStartY;
+        const deltaTime = Date.now() - this.touchStartTime;
+
+        // Quick tap or swipe up for jump
+        if (deltaY < 0 || deltaTime < 200) {
+            if (!this.dino.jumping && !this.dino.ducking) {
+                this.dino.jumping = true;
+                this.dino.velocityY = this.dino.maxJumpSpeed;
+            }
+        }
+
+        // Release duck if was ducking
+        if (this.dino.ducking) {
             this.dino.ducking = false;
             this.dino.height = this.dino.normalHeight;
             this.dino.y = this.groundLevel;

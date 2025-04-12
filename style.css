@@ -18,6 +18,9 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    touch-action: none; /* Prevent browser touch actions */
+    -webkit-touch-callout: none; /* Prevent callout on long press */
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
 }
 
 body {
@@ -58,6 +61,9 @@ body {
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
     transition: background 0.3s ease;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .game-container.dead {
@@ -164,4 +170,21 @@ body {
     50% { transform: scale(1.1) rotate(-2deg); filter: brightness(1.4); }
     75% { transform: scale(1.05) rotate(2deg); filter: brightness(1.2); }
     100% { transform: scale(1) rotate(0); filter: brightness(1); }
+}
+
+@media (max-width: 900px) {
+    #gameCanvas {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    .game-container {
+        width: 95%;
+        padding: 10px;
+    }
+    
+    #themeToggle {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
 }
