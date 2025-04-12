@@ -1,5 +1,15 @@
 class Game {
     constructor() {
+        // Theme setup
+        this.isDarkTheme = localStorage.getItem('theme') !== 'light';
+        this.updateTheme(false);
+        
+        // Theme toggle button
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            this.isDarkTheme = !this.isDarkTheme;
+            this.updateTheme(true);
+        });
+
         // Canvas setup
         this.canvas = document.getElementById('gameCanvas');
         this.ctx = this.canvas.getContext('2d');
@@ -100,6 +110,16 @@ class Game {
         // Start the game
         this.updateHighScoreDisplay();
         this.gameLoop();
+    }
+
+    updateTheme(savePreference) {
+        document.documentElement.setAttribute('data-theme', this.isDarkTheme ? 'dark' : 'light');
+        const button = document.getElementById('themeToggle');
+        button.textContent = this.isDarkTheme ? '🌞 Light Mode' : '🌙 Dark Mode';
+        
+        if (savePreference) {
+            localStorage.setItem('theme', this.isDarkTheme ? 'dark' : 'light');
+        }
     }
     
     // Game mechanics methods
