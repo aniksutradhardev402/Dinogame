@@ -7,10 +7,10 @@ A fun and interactive Chrome dinosaur-inspired game built with JavaScript!
 You can play the game directly here:
 
 <div align="center">
-  <iframe src="https://aniksutradhardev402.github.io/dinosaurgame/" width="850" height="400" frameborder="0"></iframe>
+  <iframe src="https://aniksutradhardev402.github.io/Dinogame/" width="850" height="400" frameborder="0"></iframe>
 </div>
 
-> **Note:** If the game above doesn't load, [click here to play in a new window](https://aniksutradhardev402.github.io/dinosaurgame/)
+> **Note:** If the game above doesn't load, [click here to play in a new window](https://aniksutradhardev402.github.io/Dinogame/)
 
 ## 🕹️ How to Play
 
@@ -34,7 +34,7 @@ You can play the game directly here:
 2. Go to your fork's Settings > Pages
 3. Set Source to "main" branch and folder to "root"
 4. Save the changes and wait for deployment
-5. Your game will be available at `https://yourusername.github.io/dinosaurgame/`
+5. Your game will be available at `https://yourusername.github.io/Dinogame/`
 
 ## 📝 Customize the README
 
