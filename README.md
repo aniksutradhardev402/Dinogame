@@ -7,10 +7,10 @@ A fun and interactive Chrome dinosaur-inspired game built with JavaScript!
 You can play the game directly here:
 
 <div align="center">
-  <iframe src="https://yourusername.github.io/dinosaurgame/" width="850" height="400" frameborder="0"></iframe>
+  <iframe src="https://aniksutradhardev402.github.io/dinosaurgame/" width="850" height="400" frameborder="0"></iframe>
 </div>
 
-> **Note:** If the game above doesn't load, [click here to play in a new window](https://yourusername.github.io/dinosaurgame/)
+> **Note:** If the game above doesn't load, [click here to play in a new window](https://aniksutradhardev402.github.io/dinosaurgame/)
 
 ## 🕹️ How to Play
 
