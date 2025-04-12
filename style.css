@@ -9,16 +9,32 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f7f7f7;
+    background-color: #000;
+    color: #fff;
 }
 
 .game-container {
     position: relative;
+    padding: 20px;
+    background: rgba(30, 30, 30, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.game-container.dead {
+    animation: death-shake 0.5s ease-in-out;
+}
+
+.game-container.new-highscore {
+    animation: celebration 1s ease-in-out;
+    animation-fill-mode: forwards;
 }
 
 #gameCanvas {
-    border: 2px solid #000;
-    background-color: #fff;
+    border: 1px solid #333;
+    background-color: #000;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
 #score, #highScore {
@@ -26,14 +42,47 @@ body {
     top: 20px;
     font-family: 'Arial', sans-serif;
     font-size: 20px;
+    padding: 8px 15px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
 }
 
 #score {
     left: 20px;
+    color: #fff;
 }
 
 #highScore {
     right: 20px;
+    color: #ffd700;
+    font-weight: bold;
+    animation: glow 2s ease-in-out infinite;
+}
+
+#resetHighScore {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -50px;
+    padding: 8px 15px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #ffd700;
+    border: 1px solid #ffd700;
+    border-radius: 5px;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#resetHighScore:hover {
+    background: rgba(0, 0, 0, 0.9);
+    transform: translateX(-50%) scale(1.05);
+}
+
+#resetHighScore:active {
+    transform: translateX(-50%) scale(0.95);
 }
 
 #gameOver {
@@ -44,8 +93,36 @@ body {
     font-family: 'Arial', sans-serif;
     font-size: 24px;
     text-align: center;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px 30px;
+    border-radius: 10px;
+    border: 2px solid #333;
+    color: #ff4444;
+    text-shadow: 0 0 5px rgba(255, 68, 68, 0.5);
 }
 
 .hidden {
     display: none;
+}
+
+@keyframes glow {
+    0% { text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); }
+    50% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+    100% { text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); }
+}
+
+@keyframes death-shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-10px) rotate(-1deg); }
+    40% { transform: translateX(10px) rotate(1deg); }
+    60% { transform: translateX(-10px) rotate(-1deg); }
+    80% { transform: translateX(10px) rotate(1deg); }
+}
+
+@keyframes celebration {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.05) rotate(2deg); filter: brightness(1.2); }
+    50% { transform: scale(1.1) rotate(-2deg); filter: brightness(1.4); }
+    75% { transform: scale(1.05) rotate(2deg); filter: brightness(1.2); }
+    100% { transform: scale(1) rotate(0); filter: brightness(1); }
 }

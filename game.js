@@ -94,6 +94,9 @@ class Game {
         document.addEventListener('keydown', this.handleKeyDown.bind(this));
         document.addEventListener('keyup', this.handleKeyUp.bind(this));
         
+        // Add reset high score button listener
+        document.getElementById('resetHighScore').addEventListener('click', this.resetHighScore.bind(this));
+        
         // Start the game
         this.updateHighScoreDisplay();
         this.gameLoop();
@@ -518,14 +521,40 @@ class Game {
         document.getElementById('score').textContent = `Score: ${this.score}`;
         
         if (this.score > this.highScore) {
+            const oldHighScore = this.highScore;
             this.highScore = this.score;
             this.updateHighScoreDisplay();
             localStorage.setItem('highScore', this.highScore);
+            
+            // Only trigger celebration when actually beating the high score
+            if (oldHighScore > 0) {
+                const container = document.querySelector('.game-container');
+                // Remove the class if it's already there
+                container.classList.remove('new-highscore');
+                // Force a reflow to ensure the animation plays again
+                void container.offsetWidth;
+                // Add the class back
+                container.classList.add('new-highscore');
+            }
         }
     }
     
     updateHighScoreDisplay() {
         document.getElementById('highScore').textContent = `High Score: ${this.highScore}`;
+    }
+    
+    resetHighScore() {
+        this.highScore = 0;
+        localStorage.setItem('highScore', 0);
+        this.updateHighScoreDisplay();
+        
+        // Add quick flash animation to confirm reset
+        const highScoreElement = document.getElementById('highScore');
+        highScoreElement.style.transition = 'opacity 0.2s';
+        highScoreElement.style.opacity = '0';
+        setTimeout(() => {
+            highScoreElement.style.opacity = '1';
+        }, 200);
     }
     
     gameLoop() {
@@ -552,6 +581,14 @@ class Game {
         // Handle end game state
         this.isGameOver = true;
         document.getElementById('gameOver').classList.remove('hidden');
+        
+        // Add death animation
+        const container = document.querySelector('.game-container');
+        container.classList.add('dead');
+        container.addEventListener('animationend', () => {
+            container.classList.remove('dead');
+        }, { once: true });
+        
         cancelAnimationFrame(this.animationId);
     }
     
